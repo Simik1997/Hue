@@ -10,9 +10,6 @@ import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
 /**
- * 
- * V 0.01
- * 
  * hue gaming/streaming
  * 
  * Die Software soll die Hue lampen optimiert für G/S ansteueren. Die Software
@@ -53,14 +50,11 @@ public class main {
  
 		
 		
-		// setzt den "testButton" auf die Mausfarbe
+		//Zu testzwecken BTN einfärben
 		while (true) {
-			
 			//berechnet farbe und weißt der zoone zu.
 			sortColors(getScreen());
-			
 			gui.button.setBackground(zonen[0].color);
-		
 		}
 	}
 
@@ -97,7 +91,6 @@ public class main {
 			
 		}
   }
-
 	
  public static Color averageColor(int[] colors){
 	 
@@ -116,41 +109,14 @@ public class main {
          redBucket += c.getRed();
          greenBucket += c.getGreen();
          blueBucket += c.getBlue();
-		 
-         
-         System.out.println("Color : "+c);
          
 	 }
-	 System.out.println("colorCount : "+colorCount);
-	 System.out.println("colorsAnzahl : "+colors.length);
 	 
 	 //Durschnittsfarbe 
 	 //Farben gesamt / anzahl farben
 	 Color averageColor = new Color(redBucket / colorCount,greenBucket / colorCount,blueBucket / colorCount);
-	 
-	//zum test eine Farbe aus dem Array ausgeben und in eine "Color" konvertieren
-	System.out.println("Durchschnitt : "+averageColor);
-	 
+
 	return averageColor;
- }
-	
-	
-	
-	//VERALTET! a
-	// Funktion ermittelt über einen "Roboter" die Farbei bei einem Pixel
-	// ist angeblich zu langsam, man müsste jeden Pixel einmal vom Bildschirm
-	// ablesen
-	// schnellere methode mit "BufferedImages" in Arbeit
-	public static Color getMouseColor() throws AWTException {
-		PointerInfo pointer;
-		pointer = MouseInfo.getPointerInfo();
-		Point coord = pointer.getLocation();
-		Robot robot = new Robot();
-		coord = MouseInfo.getPointerInfo().getLocation();
-		Color color = robot.getPixelColor((int) coord.getX(),
-				(int) coord.getY());
-		robot.delay(10);
-		return color;
-	}
+ 	}
 
 }
