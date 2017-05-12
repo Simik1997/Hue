@@ -64,8 +64,7 @@ public class main {
 	// berücksichtigenden Zonen!
 	// --> Besser Performance bei mehreren Monitoren. ICH BRAUCH SOWAS...
 	public static BufferedImage getScreen() throws AWTException {
-		Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit()
-				.getScreenSize());
+		Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
 		BufferedImage capture = new Robot().createScreenCapture(screenRect);
 		return capture;
 	}
@@ -84,7 +83,7 @@ public class main {
 			//gibt ein array der farbwerte für die Zone zurück
 			int[] zonenFarben = null;
 			//startX, startY, width, height, rgbArray, offset?, scansize?
-			zonenFarben = capture.getRGB(z.x,z.y,z.width,z.height, new int[z.width * z.height], 0, 0);
+			zonenFarben = capture.getRGB(z.x,z.y,z.width,z.height, new int[z.width * z.height], 0, z.width);
 			//TODO: Farbendurchschnitt errechnen und für Zone speichern
 			//System.out.println("Colors : "+Arrays.toString(zonenFarben));
 			
