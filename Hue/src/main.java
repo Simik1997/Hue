@@ -51,12 +51,17 @@ public class main {
 		// Klasse Gui ist die GUI
 		gui gui = new gui();
  
-		sortColors(getScreen());
+		
 		
 		// setzt den "testButton" auf die Mausfarbe
-		//while (true) {
-		//	gui.button.setBackground(getMouseColor());
-		//}
+		while (true) {
+			
+			//berechnet farbe und weißt der zoone zu.
+			sortColors(getScreen());
+			
+			gui.button.setBackground(zonen[0].color);
+		
+		}
 	}
 
 	// macht einen screenshot des Bildschirms
@@ -87,7 +92,7 @@ public class main {
 			//TODO: Farbendurchschnitt errechnen und für Zone speichern
 			//System.out.println("Colors : "+Arrays.toString(zonenFarben));
 			
-			averageColor(zonenFarben);
+			z.color = averageColor(zonenFarben);
 			
 			
 		}

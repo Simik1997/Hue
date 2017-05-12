@@ -10,7 +10,7 @@ import javax.swing.JMenuItem;
 
 public class gui {
 
-	public Button button;
+	public static Button button;
 	
 	public gui(){
 	JFrame frame = new JFrame();
