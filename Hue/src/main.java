@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 
 /**
  * 
@@ -41,15 +42,15 @@ public class main {
 
 	//DEMODATEN
 	public static Zone[] zonen = {
-			new Zone(0,0,100,100),
-			new Zone(50,0,200,100),
+			new Zone(200,200,15,15),
+			//new Zone(50,0,200,100),
 	};
 	
 
 	public static void main(String[] args) throws AWTException {
 		// Klasse Gui ist die GUI
 		gui gui = new gui();
-
+ 
 		sortColors(getScreen());
 		
 		// setzt den "testButton" auf die Mausfarbe
@@ -84,21 +85,54 @@ public class main {
 			int[] zonenFarben = null;
 			//startX, startY, width, height, rgbArray, offset?, scansize?
 			zonenFarben = capture.getRGB(z.x,z.y,z.width,z.height, new int[z.width * z.height], 0, 0);
-			
-			//zum test eine Farbe aus dem Array ausgeben und in eine "Color" konvertieren
-			Color c = new Color(zonenFarben[10]);
-			System.out.println("ZonenFarben [10]: "+c);
-			
 			//TODO: Farbendurchschnitt errechnen und für Zone speichern
-
+			//System.out.println("Colors : "+Arrays.toString(zonenFarben));
+			
+			averageColor(zonenFarben);
+			
+			
 		}
   }
 
 	
+ public static Color averageColor(int[] colors){
+	 
+	 int redBucket = 0;
+	 int greenBucket = 0;
+	 int blueBucket = 0;
+	 int colorCount = 0;
+
+	 for(int cNum: colors){
+		
+		 //INT in Color umwandeln
+		 Color c = new Color(cNum);
+		 
+         colorCount++;
+         //Farbwerte aller einräge addieren
+         redBucket += c.getRed();
+         greenBucket += c.getGreen();
+         blueBucket += c.getBlue();
+		 
+         
+         System.out.println("Color : "+c);
+         
+	 }
+	 System.out.println("colorCount : "+colorCount);
+	 System.out.println("colorsAnzahl : "+colors.length);
+	 
+	 //Durschnittsfarbe 
+	 //Farben gesamt / anzahl farben
+	 Color averageColor = new Color(redBucket / colorCount,greenBucket / colorCount,blueBucket / colorCount);
+	 
+	//zum test eine Farbe aus dem Array ausgeben und in eine "Color" konvertieren
+	System.out.println("Durchschnitt : "+averageColor);
+	 
+	return averageColor;
+ }
+	
 	
 	
 	//VERALTET! a
-	
 	// Funktion ermittelt über einen "Roboter" die Farbei bei einem Pixel
 	// ist angeblich zu langsam, man müsste jeden Pixel einmal vom Bildschirm
 	// ablesen
