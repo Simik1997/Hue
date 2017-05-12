@@ -33,6 +33,14 @@ import java.util.Arrays;
  * 
  * @author Alex
  * 
+ * TODO:
+ * Gui
+ * Zonengui
+ * Einstellungen
+ * Laden
+ * Speichern
+ * Colorblading
+ * 
  */
 
 public class main {
@@ -43,7 +51,6 @@ public class main {
 			//new Zone(50,0,200,100),
 	};
 	
-
 	public static void main(String[] args) throws AWTException {
 		// Klasse Gui ist die GUI
 		gui gui = new gui();
@@ -87,7 +94,6 @@ public class main {
 			//System.out.println("Colors : "+Arrays.toString(zonenFarben));
 			
 			z.color = averageColor(zonenFarben);
-			
 			
 		}
   }
