@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
+import java.awt.Window;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -71,7 +72,5 @@ public class Gui {
 	frame.getContentPane().setLayout(null);
 	frame.setVisible(true);
 	}
-
-	
-	
 }
+

@@ -1,11 +1,15 @@
 import java.awt.AWTException;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.PointerInfo;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
@@ -57,12 +61,26 @@ public class main {
 		//Klasse Gui ist die GUI
 		Gui gui = new Gui();
 		//Zu testzwecken BTN einf‰rben
+
+		//zonen anzeigen
+		//DrawOverlay.
+		
+		DrawOverlay drawO = new DrawOverlay();
+		
+		drawO.showZonen();
+		
+		
 		while (true) {
 			//berechnet farbe und weiﬂt der zoone zu.
 			sortColors(getScreen());
 			gui.button.setBackground(zonen[0].color);
 			gui.red.setText(zonen[0].color.toString());
 		}
+		
+		
+		
+		
+		
 	}
 
 	// macht einen screenshot des Bildschirms
