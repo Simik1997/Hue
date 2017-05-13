@@ -1,7 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
-import java.awt.Window;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,10 +13,11 @@ import javax.swing.JTextField;
 public class Gui {
 
 	
-	public static Button button;
+	public static Button button, btnred, btngreen, btnblue;
 	public static Button btn;
-	JLabel farbfld1;
-	JTextField red, green, blue;
+	JLabel farbfld1, lred, lgreen, lblue;
+	JTextField red,red1, green, blue;
+	
 	
 	public Gui(){
 	JFrame frame = new JFrame();
@@ -56,21 +56,65 @@ public class Gui {
 	button.setBounds(10,40,200,80);
 	button.setBackground(new Color(102, 204, 102));
 	
+	btnred = new Button("");
+	btnred.setEnabled(false);
+	btnred.setBounds(110,140,40,20);
+	btnred.setBackground(new Color(102, 204, 102));
+	frame.add(btnred);
+	
+	btngreen = new Button("");
+	btngreen.setEnabled(false);
+	btngreen.setBounds(110,160,40,20);
+	btngreen.setBackground(new Color(102, 204, 102));
+	frame.add(btngreen);
+	
+	btnblue = new Button("");
+	btnblue.setEnabled(false);
+	btnblue.setBounds(110,180,40,20);
+	btnblue.setBackground(new Color(102, 204, 102));
+	frame.add(btnblue);
+	
 	btn = new Button("Exit");
 	btn.setBounds(10,230,300,80);
 	btn.addActionListener(new EventHandling());
 	frame.getContentPane().add(btn);
 	
+	lred = new JLabel("Red:");
+	lred.setBounds(10, 140, 100, 20);
+	frame.getContentPane().add(lred);
+	
 	red = new JTextField();
-	red.setBounds(10,140,360,20);
+	red.setBounds(50,140,60,20);
 	red.setEditable(false);
 	frame.getContentPane().add(red);
 	
+	lgreen = new JLabel("Green:");
+	lgreen.setBounds(10, 160, 100, 20);
+	frame.getContentPane().add(lgreen);
 	
+	green = new JTextField();
+	green.setBounds(50,160,60,20);
+	green.setEditable(false);
+	frame.getContentPane().add(green);
+	
+	lblue = new JLabel("Blue:");
+	lblue.setBounds(10, 180, 100, 20);
+	frame.getContentPane().add(lblue);
+	
+	blue = new JTextField();
+	blue.setBounds(50,180,60,20);
+	blue.setEditable(false);
+	frame.getContentPane().add(blue);
+	/*
+	red1 = new JTextField();
+	red1.setBounds(10,200,360,20);
+	red1.setEditable(false);
+	frame.getContentPane().add(red1);
+	*/	
 	frame.getContentPane().add(button, BorderLayout.CENTER);
 	
 	frame.getContentPane().setLayout(null);
 	frame.setVisible(true);
 	}
-}
 
+}

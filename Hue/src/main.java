@@ -70,11 +70,38 @@ public class main {
 		drawO.showZonen();
 		
 		
+		//Zu testzwecken BTN einfarben
 		while (true) {
-			//berechnet farbe und weißt der zoone zu.
+			//berechnet farbe und weist der zoone zu.
 			sortColors(getScreen());
-			gui.button.setBackground(zonen[0].color);
-			gui.red.setText(zonen[0].color.toString());
+			
+			
+			Color c = zonen[0].color;
+			
+						
+			gui.button.setBackground(c);
+			
+			//Buttons neben den Labels für die einzelnen farbwerte
+			gui.btnred.setBackground(new Color(c.getRed(),0,0));
+			gui.btngreen.setBackground(new Color(0,c.getGreen(),0));
+			gui.btnblue.setBackground(new Color(0,0,c.getBlue()));
+
+			//lable geben rgb wert an
+			String returnred = String.valueOf(c.getRed());
+			String returngreen = String.valueOf(c.getGreen());
+			String returnblue = String.valueOf(c.getBlue());
+			
+			
+			
+			
+			//ruckgabe an Textfeld 
+			gui.red.setText(returnred);
+			gui.blue.setText(returnblue);
+			gui.green.setText(returngreen);
+			// Versuch den einzelnen Farbwert auszulesen und als Farbe neben dem Textfeld dazustellen
+			
+			//gui.btnred.setBackground(Color.decode("255"));
+			
 		}
 		
 		
