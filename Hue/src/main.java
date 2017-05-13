@@ -47,9 +47,11 @@ public class main {
 
 	//DEMODATEN
 	public static Zone[] zonen = {
-			new Zone(200,200,15,15),
+			new Zone(200,200,150,150),
 			//new Zone(50,0,200,100),
 	};
+	
+	public int kontrast;
 	
 	public static void main(String[] args) throws AWTException {
 		// Klasse Gui ist die GUI
@@ -61,7 +63,9 @@ public class main {
 		while (true) {
 			//berechnet farbe und weiﬂt der zoone zu.
 			sortColors(getScreen());
+			
 			gui.button.setBackground(zonen[0].color);
+			gui.red.setText(zonen[0].color.toString());
 		}
 	}
 
