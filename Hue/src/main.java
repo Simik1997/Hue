@@ -52,7 +52,7 @@ public class main {
 	//DEMODATEN
 	public static Zone[] zonen = {
 			new Zone(200,200,150,150),
-			//new Zone(50,0,200,100),
+			new Zone(500,400,600,300),
 	};
 	
 	public int kontrast;
@@ -65,7 +65,7 @@ public class main {
 		//zonen anzeigen
 		//DrawOverlay.
 		
-		DrawOverlay drawO = new DrawOverlay();
+		Overlay drawO = new Overlay();
 		
 		drawO.showZonen();
 		
@@ -90,9 +90,7 @@ public class main {
 			String returnred = String.valueOf(c.getRed());
 			String returngreen = String.valueOf(c.getGreen());
 			String returnblue = String.valueOf(c.getBlue());
-			
-			
-			
+
 			
 			//ruckgabe an Textfeld 
 			gui.red.setText(returnred);
