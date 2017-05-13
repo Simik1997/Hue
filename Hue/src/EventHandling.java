@@ -9,7 +9,7 @@ public class EventHandling implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent al) {
 		
-		if (al.getSource() == gui.btn){
+		if (al.getSource() == Gui.btn){
 			System.exit(0);
 		}
 		

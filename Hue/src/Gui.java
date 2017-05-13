@@ -10,7 +10,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 
 
-public class gui {
+public class Gui {
 
 	
 	public static Button button;
@@ -18,7 +18,7 @@ public class gui {
 	JLabel farbfld1;
 	JTextField red, green, blue;
 	
-	public gui(){
+	public Gui(){
 	JFrame frame = new JFrame();
 	frame.setBounds(0,0,428,396);
 	

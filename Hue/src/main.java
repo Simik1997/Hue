@@ -54,16 +54,12 @@ public class main {
 	public int kontrast;
 	
 	public static void main(String[] args) throws AWTException {
-		// Klasse Gui ist die GUI
-		gui gui = new gui();
- 
-		
-		
+		//Klasse Gui ist die GUI
+		Gui gui = new Gui();
 		//Zu testzwecken BTN einf‰rben
 		while (true) {
 			//berechnet farbe und weiﬂt der zoone zu.
 			sortColors(getScreen());
-			
 			gui.button.setBackground(zonen[0].color);
 			gui.red.setText(zonen[0].color.toString());
 		}
