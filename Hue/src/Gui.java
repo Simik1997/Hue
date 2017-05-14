@@ -8,6 +8,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTextField;
+import javax.swing.JButton;
 
 
 public class Gui {
@@ -60,19 +61,19 @@ public class Gui {
 	btnred.setEnabled(false);
 	btnred.setBounds(110,140,40,20);
 	btnred.setBackground(new Color(102, 204, 102));
-	frame.add(btnred);
+	frame.getContentPane().add(btnred);
 	
 	btngreen = new Button("");
 	btngreen.setEnabled(false);
 	btngreen.setBounds(110,160,40,20);
 	btngreen.setBackground(new Color(102, 204, 102));
-	frame.add(btngreen);
+	frame.getContentPane().add(btngreen);
 	
 	btnblue = new Button("");
 	btnblue.setEnabled(false);
 	btnblue.setBounds(110,180,40,20);
 	btnblue.setBackground(new Color(102, 204, 102));
-	frame.add(btnblue);
+	frame.getContentPane().add(btnblue);
 	
 	btn = new Button("Exit");
 	btn.setBounds(10,230,300,80);
@@ -115,6 +116,6 @@ public class Gui {
 	
 	frame.getContentPane().setLayout(null);
 	frame.setVisible(true);
-	}
 
+	}
 }

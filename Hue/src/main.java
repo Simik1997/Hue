@@ -1,8 +1,10 @@
 import java.awt.AWTException;
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.PointerInfo;
@@ -14,6 +16,13 @@ import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+
+import java.awt.BorderLayout;
+
+import javax.swing.SwingConstants;
 
 /**
  * hue gaming/streaming
@@ -58,17 +67,16 @@ public class main {
 	};
 	
 	public int kontrast;
+	static JFrame overlayFrame = new JFrame("Zonen");
+	
 	
 	public static void main(String[] args) throws AWTException {
-		//Klasse Gui ist die GUI
-		Gui gui = new Gui();
-		//Zu testzwecken BTN einfärben
-
+	
 		//Overlay
 		createOverlay();
 		
-		//drawO.showZonen();
-		
+		//Klasse Gui ist die GUI
+		Gui gui = new Gui();
 		
 		//Zu testzwecken BTN einfarben
 		while (true) {
@@ -169,18 +177,50 @@ public class main {
  	}
 
 	public static void createOverlay(){
-        JFrame f = new JFrame("Draw Box Mouse 2");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setContentPane(new Overlay());
+        
+		overlayFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Overlay overlay = new Overlay();
+        overlayFrame.setContentPane(overlay);
 
-		f.setBounds(f.getGraphicsConfiguration().getBounds());
+        //Controls
+     
+        //TODO: @Phil GUI für den Zoneneditor gestalten
+        //bin nicht sicher was benötigt wird (neuanlegen, Zoneneditor schließen usw)
+        //ggf. noch mehr Ergänzen falls nötig
+    	JLabel lred = new JLabel("");
+    	lred.setBounds(10, 140, 100, 20);
+    	overlayFrame.getContentPane().add(lred);
+
+    	
+        JButton b1 = new JButton();     
+        b1.setBounds(0,0,300,30);
+        b1.setVisible(true);
+        b1.setText("Neue Zone");
+        overlayFrame.add(b1);
+    	
+        JButton b2 = new JButton(); 
+        b2.setLayout(null);
+        //b2.setSize(100,30);
+        b2.setBounds(0,100,300,30);
+        b2.setVisible(true);
+        b2.setText("Zoneneditor verlassen");
+        overlayFrame.add(b2);
+        
+    	
+        
+        overlayFrame.setBounds(overlayFrame.getGraphicsConfiguration().getBounds());
 		//f.setBackground(new Color(0, true));
-		f.getContentPane().setLayout(new java.awt.BorderLayout());
-		f.getContentPane().setBackground(new Color(0, 0, 0, 01));
-		f.setUndecorated(true);
-		f.setBackground(new Color(0, 0, 0, 01));
-		f.setAlwaysOnTop(true);
-        f.setVisible(true);
+        overlayFrame.getContentPane().setLayout(new java.awt.BorderLayout());
+        overlayFrame.getContentPane().setBackground(new Color(0, 0, 0, 01));
+        overlayFrame.setUndecorated(true);
+        overlayFrame.setBackground(new Color(0, 0, 0, 01));
+        overlayFrame.setAlwaysOnTop(true);
+		
+		
+        overlayFrame.getContentPane().setLayout(null);
+		
+        overlayFrame.setVisible(true);
+       
 		
 	}
 	

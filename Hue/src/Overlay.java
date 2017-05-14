@@ -6,7 +6,7 @@ import java.awt.event.*;
     public class Overlay extends JPanel {
 
     	
-    	Zone aktiveZone;
+    	Zone draggingZone;
     	int feld; //1 links - oben ,2 rechts - oben, 3 links - unten, 4 rechts - unten, 5 mitte
     	//dragAreaSize
         int daSize = 10;
@@ -22,6 +22,31 @@ import java.awt.event.*;
             MyMouseListener listener = new MyMouseListener();
             addMouseListener(listener);
             addMouseMotionListener(listener);
+            
+            
+            //beim erstellen des Oberlay werden für jede Zone die AktionButtons erstellt
+            //falls neue Zonen erstellt werden werden diese Buttons in dem moment ersellt, in welchem eine neue Zone erstellt wird.
+           
+            /**
+            for(Zone z: main.zonen){
+            	
+            	
+            	Frame f = main.overlayFrame;
+            	
+                JButton b3 = new JButton(); 
+                b3.setLayout(null);
+                //b3.setBounds(z.x + z.width +10,z.y,100,30);
+                b3.setBounds(1000,1000,100,30);
+                b3.setVisible(true);
+                b3.setText("Delete");
+                f.add(b3);
+                
+            }
+            //gui updaten
+            main.overlayFrame.revalidate();
+            main.overlayFrame.repaint();
+        	**/
+        
         }
 
 
@@ -39,7 +64,7 @@ import java.awt.event.*;
             		e.getY() >= z.y-daSize/2 && e.getY() <= z.y+daSize+2		
             		){
             			System.out.print("links oben!");
-            			aktiveZone = z;
+            			draggingZone = z;
             			feld = 1;
             			//repaint();
             		}
@@ -49,7 +74,7 @@ import java.awt.event.*;
             	    	e.getY() >= z.y-daSize/2 && e.getY() <= z.y+daSize+2	
             		){
             			System.out.print("rechts oben!");
-            			aktiveZone = z;
+            			draggingZone = z;
             			feld = 2;
             		}
             		//links unten
@@ -58,7 +83,7 @@ import java.awt.event.*;
             	    	e.getY() >= z.y+z.height-daSize/2 && e.getY() <= z.y+z.height+daSize+2	
             		){
             			System.out.print("links unten!");
-            			aktiveZone = z;
+            			draggingZone = z;
             			feld = 3;
             		}
             		//rechts unten
@@ -67,7 +92,7 @@ import java.awt.event.*;
             			e.getY() >= z.y+z.height-daSize/2 && e.getY() <= z.y+z.height+daSize+2	
             		){
             			System.out.print("rechts unten!");
-            			aktiveZone = z;
+            			draggingZone = z;
             			feld = 4;
             		}    		
             		//mitte
@@ -76,7 +101,7 @@ import java.awt.event.*;
             			e.getY() >= z.y+z.height/2-mkR/2 && e.getY() <= z.y+z.height/2+mkR+2	
             		){
             			System.out.print("mitte!");
-            			aktiveZone = z;
+            			draggingZone = z;
             			feld = 5;
             		}   
             		
@@ -87,7 +112,7 @@ import java.awt.event.*;
             public void mouseReleased(MouseEvent e) {
                 //setEndPoint(e.getX(), e.getY());
             	
-            	aktiveZone = null;
+            	draggingZone = null;
             	feld = 0;
                 repaint();
             }
@@ -97,75 +122,75 @@ import java.awt.event.*;
                 System.out.println("Mouse dragged");
                 
                 //falls eine zone ausgewählt ist
-                if(aktiveZone != null && feld != 0){
+                if(draggingZone != null && feld != 0){
 
                 	//links oben
                 	if(feld == 1){
                 		//neue weite berechen
-                		 int newWidth = aktiveZone.width + (aktiveZone.x - e.getX());
-                		 int newHeight = aktiveZone.height + (aktiveZone.y - e.getY());
+                		 int newWidth = draggingZone.width + (draggingZone.x - e.getX());
+                		 int newHeight = draggingZone.height + (draggingZone.y - e.getY());
                 		//prüfen ob mindestgrößen unterschritten wird
                         if(newWidth >= zoneMin)
                         {
-                			aktiveZone.width = newWidth;
-                			aktiveZone.x = e.getX();
+                			draggingZone.width = newWidth;
+                			draggingZone.x = e.getX();
                         }
                         if (newHeight >= zoneMin){
-                			aktiveZone.height = newHeight;
-                			aktiveZone.y = e.getY();
+                			draggingZone.height = newHeight;
+                			draggingZone.y = e.getY();
                         }
                 	} else if
                 	(feld == 2){
                 	//neue weite berechen
-               		 int newWidth = e.getX() - aktiveZone.x;
-               		 int newHeight = aktiveZone.height + (aktiveZone.y - e.getY());
+               		 int newWidth = e.getX() - draggingZone.x;
+               		 int newHeight = draggingZone.height + (draggingZone.y - e.getY());
                		 int newY = e.getY();
                		//prüfen ob mindestgrößen unterschritten wird
                        if(newWidth >= zoneMin)
                        {
-               			aktiveZone.width = newWidth;
+               			draggingZone.width = newWidth;
                        }
                        if (newHeight >= zoneMin){
                     	   
-               			aktiveZone.height = newHeight;
-               			aktiveZone.y = newY;
+               			draggingZone.height = newHeight;
+               			draggingZone.y = newY;
                        }
                 	} else if
                 	(feld == 3){
                 	//neue werte berechen
-               		 int newWidth = aktiveZone.width + (aktiveZone.x - e.getX());
-               		 int newHeight =e.getY() - aktiveZone.y ;
+               		 int newWidth = draggingZone.width + (draggingZone.x - e.getX());
+               		 int newHeight =e.getY() - draggingZone.y ;
                		 int newX = e.getX();
                		//prüfen ob mindestgrößen unterschritten wird
                        if(newWidth >= zoneMin)
                        {
-                    	aktiveZone.x = newX;
-               			aktiveZone.width = newWidth;
+                    	draggingZone.x = newX;
+               			draggingZone.width = newWidth;
                        }
                        if (newHeight >= zoneMin){
-               			aktiveZone.height = newHeight;
+               			draggingZone.height = newHeight;
                        }
                 	} else if
                 	(feld == 4){
                 	//neue werte berechen
-               		 int newWidth = e.getX() - aktiveZone.x;
-               		 int newHeight =e.getY() - aktiveZone.y;
+               		 int newWidth = e.getX() - draggingZone.x;
+               		 int newHeight =e.getY() - draggingZone.y;
                		//prüfen ob mindestgrößen unterschritten wird
                        if(newWidth >= zoneMin)
                        {
-               			aktiveZone.width = newWidth;
+               			draggingZone.width = newWidth;
                        }
                        if (newHeight >= zoneMin){
-               			aktiveZone.height = newHeight;
+               			draggingZone.height = newHeight;
                        }
                 	} else if
                 	(feld == 5){
                 	//neue werte berechen
-               		 int newX =e.getX() - aktiveZone.width/2;
-               		 int newY =e.getY() - aktiveZone.height/2;
+               		 int newX =e.getX() - draggingZone.width/2;
+               		 int newY =e.getY() - draggingZone.height/2;
 
-               		 aktiveZone.x = newX;
-               		 aktiveZone.y = newY;
+               		 draggingZone.x = newX;
+               		 draggingZone.y = newY;
 
                 	}
 
@@ -205,6 +230,10 @@ import java.awt.event.*;
 	            //kreuz
 	            g.drawLine(cX-mkR/2, cY-mkR/2, cX+mkR/2, cY+mkR/2);
 	            g.drawLine(cX+mkR/2, cY-mkR/2, cX-mkR/2, cY+mkR/2);
+	            
+	            
+	            //Componenten
+	            
 			}  
         }
 
