@@ -58,6 +58,10 @@ import javax.swing.SwingConstants;
  * 
  */
 
+
+//TODO: color grading
+//TODO: hue integration
+
 public class main {
 
 	//DEMODATEN
@@ -67,13 +71,14 @@ public class main {
 	};
 	
 	public int kontrast;
-	static JFrame overlayFrame = new JFrame("Zonen");
+	
 	
 	
 	public static void main(String[] args) throws AWTException {
 	
 		//Overlay
-		createOverlay();
+		Overlay ov = new Overlay();
+		ov.overlayShow();
 		
 		//Klasse Gui ist die GUI
 		Gui gui = new Gui();
@@ -83,10 +88,7 @@ public class main {
 			//berechnet farbe und weist der zoone zu.
 			sortColors(getScreen());
 			
-			
-			Color c = zonen[0].color;
-			
-						
+			Color c = zonen[0].color;	
 			gui.button.setBackground(c);
 			
 			//Buttons neben den Labels für die einzelnen farbwerte
@@ -99,21 +101,11 @@ public class main {
 			String returngreen = String.valueOf(c.getGreen());
 			String returnblue = String.valueOf(c.getBlue());
 
-			
 			//ruckgabe an Textfeld 
 			gui.red.setText(returnred);
 			gui.blue.setText(returnblue);
 			gui.green.setText(returngreen);
-			// Versuch den einzelnen Farbwert auszulesen und als Farbe neben dem Textfeld dazustellen
-			
-			//gui.btnred.setBackground(Color.decode("255"));
-			
 		}
-		
-		
-		
-		
-		
 	}
 
 	// macht einen screenshot des Bildschirms
@@ -130,22 +122,18 @@ public class main {
 	// und anhand der Koordinaten in die Zonen aufteilen
 	// EDIT: Es werden für Performancesteigerungen nicht alle Pixel abgesucht,
 	// sondern nur die in Zonen enthaltenen.
-	
 	// TODO: Farben in Zonen aufteilen
 	public static void sortColors(BufferedImage capture){
 
 		//Für jede Zone Farbwerte ermitteln
 		for(Zone z: zonen){
-			
 			//gibt ein array der farbwerte für die Zone zurück
 			int[] zonenFarben = null;
 			//startX, startY, width, height, rgbArray, offset?, scansize?
 			zonenFarben = capture.getRGB(z.x,z.y,z.width,z.height, new int[z.width * z.height], 0, z.width);
 			//TODO: Farbendurchschnitt errechnen und für Zone speichern
-			//System.out.println("Colors : "+Arrays.toString(zonenFarben));
-			
+			//System.out.println("Colors : "+Arrays.toString(zonenFarben))
 			z.color = averageColor(zonenFarben);
-			
 		}
   }
 	
@@ -155,18 +143,16 @@ public class main {
 	 int greenBucket = 0;
 	 int blueBucket = 0;
 	 int colorCount = 0;
-
 	 for(int cNum: colors){
 		
 		 //INT in Color umwandeln
 		 Color c = new Color(cNum);
-		 
+		
          colorCount++;
          //Farbwerte aller einräge addieren
          redBucket += c.getRed();
          greenBucket += c.getGreen();
          blueBucket += c.getBlue();
-         
 	 }
 	 
 	 //Durschnittsfarbe 
@@ -176,52 +162,5 @@ public class main {
 	return averageColor;
  	}
 
-	public static void createOverlay(){
-        
-		overlayFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Overlay overlay = new Overlay();
-        overlayFrame.setContentPane(overlay);
-
-        //Controls
-     
-        //TODO: @Phil GUI für den Zoneneditor gestalten
-        //bin nicht sicher was benötigt wird (neuanlegen, Zoneneditor schließen usw)
-        //ggf. noch mehr Ergänzen falls nötig
-    	JLabel lred = new JLabel("");
-    	lred.setBounds(10, 140, 100, 20);
-    	overlayFrame.getContentPane().add(lred);
-
-    	
-        JButton b1 = new JButton();     
-        b1.setBounds(0,0,300,30);
-        b1.setVisible(true);
-        b1.setText("Neue Zone");
-        overlayFrame.add(b1);
-    	
-        JButton b2 = new JButton(); 
-        b2.setLayout(null);
-        //b2.setSize(100,30);
-        b2.setBounds(0,100,300,30);
-        b2.setVisible(true);
-        b2.setText("Zoneneditor verlassen");
-        overlayFrame.add(b2);
-        
-    	
-        
-        overlayFrame.setBounds(overlayFrame.getGraphicsConfiguration().getBounds());
-		//f.setBackground(new Color(0, true));
-        overlayFrame.getContentPane().setLayout(new java.awt.BorderLayout());
-        overlayFrame.getContentPane().setBackground(new Color(0, 0, 0, 01));
-        overlayFrame.setUndecorated(true);
-        overlayFrame.setBackground(new Color(0, 0, 0, 01));
-        overlayFrame.setAlwaysOnTop(true);
-		
-		
-        overlayFrame.getContentPane().setLayout(null);
-		
-        overlayFrame.setVisible(true);
-       
-		
-	}
 	
 }

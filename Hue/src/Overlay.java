@@ -16,13 +16,52 @@ import java.awt.event.*;
         int zoneMin = 50;
         
         
-        
+        //erstellt das fenster und zeigt es an
+        public void overlayShow(){
+        	
+        	JFrame overlayFrame = new JFrame("Zonen");
+			overlayFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            Overlay overlay = new Overlay();
+            overlayFrame.setContentPane(overlay);
+            //Controls
+            
+            //TODO: @Phil GUI für den Zoneneditor gestalten
+            //TODO: Delete/Copy Buttons sollen neben der Zone dargestellt werden
+            //TODO: Editfelder für manuelle Koordinateneingabe
+            //bin nicht sicher was benötigt wird (neuanlegen, Zoneneditor schließen usw)
+            //ggf. noch mehr Ergänzen falls nötig
+        	JLabel lred = new JLabel("");
+        	lred.setBounds(10, 140, 100, 20);
+        	overlayFrame.getContentPane().add(lred);
+        	
+            JButton b1 = new JButton();     
+            b1.setBounds(0,0,300,30);
+            b1.setVisible(true);
+            b1.setText("Neue Zone");
+            overlayFrame.add(b1);
+            
+            JButton b2 = new JButton(); 
+            b2.setLayout(null);
+            b2.setBounds(0,100,300,30);
+            b2.setVisible(true);
+            b2.setText("Zoneneditor verlassen");
+            overlayFrame.add(b2);
+            
+            overlayFrame.setBounds(overlayFrame.getGraphicsConfiguration().getBounds());
+            overlayFrame.getContentPane().setLayout(new java.awt.BorderLayout());
+            overlayFrame.getContentPane().setBackground(new Color(0, 0, 0, 01));
+            overlayFrame.setUndecorated(true);
+            overlayFrame.setBackground(new Color(0, 0, 0, 01));
+            overlayFrame.setAlwaysOnTop(true);
+            overlayFrame.getContentPane().setLayout(null);
+
+            overlayFrame.setVisible(true);
+        }        
         
         Overlay() {
             MyMouseListener listener = new MyMouseListener();
             addMouseListener(listener);
             addMouseMotionListener(listener);
-            
             
             //beim erstellen des Oberlay werden für jede Zone die AktionButtons erstellt
             //falls neue Zonen erstellt werden werden diese Buttons in dem moment ersellt, in welchem eine neue Zone erstellt wird.
@@ -199,7 +238,7 @@ import java.awt.event.*;
             
             }
             
-            public void mouseMoved(MouseEvent e) {
+       public void mouseMoved(MouseEvent e) {
             }
         }
 
@@ -230,9 +269,6 @@ import java.awt.event.*;
 	            //kreuz
 	            g.drawLine(cX-mkR/2, cY-mkR/2, cX+mkR/2, cY+mkR/2);
 	            g.drawLine(cX+mkR/2, cY-mkR/2, cX-mkR/2, cY+mkR/2);
-	            
-	            
-	            //Componenten
 	            
 			}  
         }

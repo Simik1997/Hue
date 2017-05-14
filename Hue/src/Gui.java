@@ -14,6 +14,9 @@ import javax.swing.JButton;
 public class Gui {
 
 	
+	//TODO: Helligkeit, Sättigungsregler, Zonen Liste, Lampen zu zone zuweisen 
+	
+	
 	public static Button button, btnred, btngreen, btnblue;
 	public static Button btn;
 	JLabel farbfld1, lred, lgreen, lblue;
