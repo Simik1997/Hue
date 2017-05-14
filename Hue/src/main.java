@@ -13,6 +13,8 @@ import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
+import javax.swing.JFrame;
+
 /**
  * hue gaming/streaming
  * 
@@ -62,12 +64,10 @@ public class main {
 		Gui gui = new Gui();
 		//Zu testzwecken BTN einfärben
 
-		//zonen anzeigen
-		//DrawOverlay.
+		//Overlay
+		createOverlay();
 		
-		Overlay drawO = new Overlay();
-		
-		drawO.showZonen();
+		//drawO.showZonen();
 		
 		
 		//Zu testzwecken BTN einfarben
@@ -141,7 +141,7 @@ public class main {
 		}
   }
 	
- public static Color averageColor(int[] colors){
+	public static Color averageColor(int[] colors){
 	 
 	 int redBucket = 0;
 	 int greenBucket = 0;
@@ -168,4 +168,20 @@ public class main {
 	return averageColor;
  	}
 
+	public static void createOverlay(){
+        JFrame f = new JFrame("Draw Box Mouse 2");
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setContentPane(new Overlay());
+
+		f.setBounds(f.getGraphicsConfiguration().getBounds());
+		//f.setBackground(new Color(0, true));
+		f.getContentPane().setLayout(new java.awt.BorderLayout());
+		f.getContentPane().setBackground(new Color(0, 0, 0, 01));
+		f.setUndecorated(true);
+		f.setBackground(new Color(0, 0, 0, 01));
+		f.setAlwaysOnTop(true);
+        f.setVisible(true);
+		
+	}
+	
 }
