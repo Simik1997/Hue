@@ -5,8 +5,11 @@ import java.awt.event.*;
 
     public class Overlay extends JPanel {
 
-    	
+    	//wird die zone gespeichert wenn gedraggt wird
     	Zone draggingZone;
+    	//wird die zuletzt selektierte zone gespeichert (für die einstellungen und löschen usw.)
+    	//wird farblich gekennzeichnet
+    	Zone aktiveZone;
     	int feld; //1 links - oben ,2 rechts - oben, 3 links - unten, 4 rechts - unten, 5 mitte
     	//dragAreaSize
         int daSize = 10;
@@ -26,9 +29,8 @@ import java.awt.event.*;
             //Controls
             
             //TODO: @Phil GUI für den Zoneneditor gestalten
-            //TODO: Delete/Copy Buttons sollen neben der Zone dargestellt werden
             //TODO: Editfelder für manuelle Koordinateneingabe
-            //bin nicht sicher was benötigt wird (neuanlegen, Zoneneditor schließen usw)
+            //bin nicht sicher was benötigt wird (neuanlegen, zone kopieren, zone löschen, Zoneneditor schließen usw)
             //ggf. noch mehr Ergänzen falls nötig
         	JLabel lred = new JLabel("");
         	lred.setBounds(10, 140, 100, 20);
@@ -47,6 +49,13 @@ import java.awt.event.*;
             b2.setText("Zoneneditor verlassen");
             overlayFrame.add(b2);
             
+            JButton b3 = new JButton(); 
+            b3.setLayout(null);
+            b3.setBounds(0,200,300,30);
+            b3.setVisible(true);
+            b3.setText("Zone löschen");
+            overlayFrame.add(b3);
+            
             overlayFrame.setBounds(overlayFrame.getGraphicsConfiguration().getBounds());
             overlayFrame.getContentPane().setLayout(new java.awt.BorderLayout());
             overlayFrame.getContentPane().setBackground(new Color(0, 0, 0, 01));
@@ -54,7 +63,7 @@ import java.awt.event.*;
             overlayFrame.setBackground(new Color(0, 0, 0, 01));
             overlayFrame.setAlwaysOnTop(true);
             overlayFrame.getContentPane().setLayout(null);
-
+            
             overlayFrame.setVisible(true);
         }        
         
@@ -63,29 +72,10 @@ import java.awt.event.*;
             addMouseListener(listener);
             addMouseMotionListener(listener);
             
-            //beim erstellen des Oberlay werden für jede Zone die AktionButtons erstellt
-            //falls neue Zonen erstellt werden werden diese Buttons in dem moment ersellt, in welchem eine neue Zone erstellt wird.
-           
-            /**
-            for(Zone z: main.zonen){
-            	
-            	
-            	Frame f = main.overlayFrame;
-            	
-                JButton b3 = new JButton(); 
-                b3.setLayout(null);
-                //b3.setBounds(z.x + z.width +10,z.y,100,30);
-                b3.setBounds(1000,1000,100,30);
-                b3.setVisible(true);
-                b3.setText("Delete");
-                f.add(b3);
-                
-            }
-            //gui updaten
-            main.overlayFrame.revalidate();
-            main.overlayFrame.repaint();
-        	**/
-        
+        	if(main.zonen[0] != null){
+        		aktiveZone = main.zonen[0];
+        	}
+            
         }
 
 
@@ -104,6 +94,7 @@ import java.awt.event.*;
             		){
             			System.out.print("links oben!");
             			draggingZone = z;
+            			aktiveZone = z;
             			feld = 1;
             			//repaint();
             		}
@@ -114,6 +105,7 @@ import java.awt.event.*;
             		){
             			System.out.print("rechts oben!");
             			draggingZone = z;
+            			aktiveZone = z;
             			feld = 2;
             		}
             		//links unten
@@ -123,6 +115,7 @@ import java.awt.event.*;
             		){
             			System.out.print("links unten!");
             			draggingZone = z;
+            			aktiveZone = z;
             			feld = 3;
             		}
             		//rechts unten
@@ -132,6 +125,7 @@ import java.awt.event.*;
             		){
             			System.out.print("rechts unten!");
             			draggingZone = z;
+            			aktiveZone = z;
             			feld = 4;
             		}    		
             		//mitte
@@ -141,6 +135,7 @@ import java.awt.event.*;
             		){
             			System.out.print("mitte!");
             			draggingZone = z;
+            			aktiveZone = z;
             			feld = 5;
             		}   
             		
@@ -250,7 +245,14 @@ import java.awt.event.*;
 			for(Zone z: main.zonen){				
 		        //2D graphics kann die liniendicke anpassen
 	            Graphics2D g2 = (Graphics2D) g;
+	            
+	            //wenn die aktive Zone gemalt wird --> rot
+	            if(aktiveZone == z){
+	            g2.setColor(Color.red);
+	            }else{	            
 	            g2.setColor(Color.black);
+	            }
+	            
 	            g2.setStroke(new BasicStroke(3));
 	            g2.drawRect(z.x,z.y, z.width, z.height);
 	            
