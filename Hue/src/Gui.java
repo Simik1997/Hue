@@ -18,7 +18,7 @@ public class Gui {
 	
 	
 	public static Button button, btnred, btngreen, btnblue;
-	public static Button btn;
+	public static Button btn, btn2;
 	JLabel farbfld1, lred, lgreen, lblue;
 	JTextField red,red1, green, blue;
 	
@@ -80,8 +80,13 @@ public class Gui {
 	
 	btn = new Button("Exit");
 	btn.setBounds(10,230,300,80);
-	btn.addActionListener(new EventHandling());
+	btn.addActionListener(main.ev);
 	frame.getContentPane().add(btn);
+	
+	btn2 = new Button("Exit");
+	btn2.setBounds(110,230,300,80);
+	btn2.addActionListener(main.ev);
+	frame.getContentPane().add(btn2);
 	
 	lred = new JLabel("Red:");
 	lred.setBounds(10, 140, 100, 20);

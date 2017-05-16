@@ -65,6 +65,7 @@ import javax.swing.SwingConstants;
 public class main {
 
 	//DEMODATEN
+	
 	public static Zone[] zonen = {
 			new Zone(200,200,150,150),
 			new Zone(500,400,600,300),
@@ -72,16 +73,23 @@ public class main {
 	
 	public int kontrast;
 	
+	public static EventHandling ev;
 	
 	
 	public static void main(String[] args) throws AWTException {
-	
-		//Overlay
-		Overlay ov = new Overlay();
-		ov.overlayShow();
+		
+		ev = new EventHandling();
 		
 		//Klasse Gui ist die GUI
 		Gui gui = new Gui();
+		
+		
+		//Overlay
+		Overlay ov = new Overlay();
+		ov.overlayShow();
+		//zonen bearbeiten dialog für das Overlay
+		ZonenDialog zd = new ZonenDialog();
+		
 		
 		//Zu testzwecken BTN einfarben
 		while (true) {

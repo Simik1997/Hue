@@ -26,41 +26,12 @@ import java.awt.event.*;
 			overlayFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             Overlay overlay = new Overlay();
             overlayFrame.setContentPane(overlay);
-            //Controls
-            
-            //TODO: @Phil GUI für den Zoneneditor gestalten
-            //TODO: Editfelder für manuelle Koordinateneingabe
-            //bin nicht sicher was benötigt wird (neuanlegen, zone kopieren, zone löschen, Zoneneditor schließen usw)
-            //ggf. noch mehr Ergänzen falls nötig
-        	JLabel lred = new JLabel("");
-        	lred.setBounds(10, 140, 100, 20);
-        	overlayFrame.getContentPane().add(lred);
-        	
-            JButton b1 = new JButton();     
-            b1.setBounds(0,0,300,30);
-            b1.setVisible(true);
-            b1.setText("Neue Zone");
-            overlayFrame.add(b1);
-            
-            JButton b2 = new JButton(); 
-            b2.setLayout(null);
-            b2.setBounds(0,100,300,30);
-            b2.setVisible(true);
-            b2.setText("Zoneneditor verlassen");
-            overlayFrame.add(b2);
-            
-            JButton b3 = new JButton(); 
-            b3.setLayout(null);
-            b3.setBounds(0,200,300,30);
-            b3.setVisible(true);
-            b3.setText("Zone löschen");
-            overlayFrame.add(b3);
             
             overlayFrame.setBounds(overlayFrame.getGraphicsConfiguration().getBounds());
             overlayFrame.getContentPane().setLayout(new java.awt.BorderLayout());
             overlayFrame.getContentPane().setBackground(new Color(0, 0, 0, 01));
             overlayFrame.setUndecorated(true);
-            overlayFrame.setBackground(new Color(0, 0, 0, 01));
+            overlayFrame.setBackground(new Color(0, 0, 0, 0));
             overlayFrame.setAlwaysOnTop(true);
             overlayFrame.getContentPane().setLayout(null);
             
@@ -257,17 +228,44 @@ import java.awt.event.*;
 	            g2.drawRect(z.x,z.y, z.width, z.height);
 	            
 	            //drag-areas malen
-	            g2.setColor(Color.black);
 	            g2.setStroke(new BasicStroke(1));
+	            
+	            //ecken werden ausgemalt
+	            g2.setColor(new Color(50,50,50,50));
+	            g2.fillRect(z.x-daSize/2,z.y-daSize/2, daSize, daSize);
+	            g2.setColor(Color.black);
 	            g2.drawRect(z.x-daSize/2,z.y-daSize/2, daSize, daSize);
+	            
+	            //ecken werden ausgemalt
+	            g2.setColor(new Color(50,50,50,50));
+	            g2.fillRect(z.x-daSize/2+z.width,z.y-daSize/2, daSize, daSize);
+	            g2.setColor(Color.black);	            
 	            g2.drawRect(z.x-daSize/2+z.width,z.y-daSize/2, daSize, daSize);
-	            g2.drawRect(z.x-daSize/2,z.y-daSize/2+z.height, daSize, daSize);
-	            g2.drawRect(z.x-daSize/2+z.width,z.y-daSize/2+z.height, daSize, daSize);
-		        
+	            
+
+	            //ecken werden ausgemalt
+	            g2.setColor(new Color(50,50,50,50));
+	            g2.fillRect(z.x-daSize/2,z.y-daSize/2+z.height, daSize, daSize);
+	            g2.setColor(Color.black);
+	            g2.drawRect(z.x-daSize/2,z.y-daSize/2+z.height, daSize, daSize);	        
+	            
+
+	            //ecken werden ausgemalt
+	            g2.setColor(new Color(50,50,50,50));
+	            g2.fillRect(z.x-daSize/2+z.width,z.y-daSize/2+z.height, daSize, daSize);
+	            g2.setColor(Color.black);
+	            g2.drawRect(z.x-daSize/2+z.width,z.y-daSize/2+z.height, daSize, daSize);	            
+	            
+	            
 	            //mittelkreuz für bewegen der Zone malen
 	            int cX = z.x + z.width / 2;
 	            int cY = z.y + z.height / 2;
+	            
+	            g2.setColor(new Color(50,50,50,50));
+	            g.fillOval(cX - mkR/2, cY - mkR/2, mkR, mkR);
+	            g2.setColor(Color.black);
 	            g.drawOval(cX - mkR/2, cY - mkR/2, mkR, mkR);
+
 	            //kreuz
 	            g.drawLine(cX-mkR/2, cY-mkR/2, cX+mkR/2, cY+mkR/2);
 	            g.drawLine(cX+mkR/2, cY-mkR/2, cX-mkR/2, cY+mkR/2);
