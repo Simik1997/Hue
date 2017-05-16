@@ -9,10 +9,10 @@ public class EventHandling implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent al) {
 		
-		if (al.getSource() == ZonenDialog.button){
+		if (al.getSource() == Gui.button){
 			System.exit(0); 
 		}
-		else if(al.getSource() == Gui.btn2){
+		else if(al.getSource() == ZonenDialog.btnZoneNew){
 			System.exit(0); 
 			
 		}
