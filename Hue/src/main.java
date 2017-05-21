@@ -13,6 +13,10 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.JFrame;
@@ -65,54 +69,46 @@ import javax.swing.SwingConstants;
 public class main {
 
 	//DEMODATEN
+
+	//public static Zone[] zonen = {
+	//		new Zone(200,200,150,150, "Zone1"),
+	//		new Zone(500,400,600,300, "Zone2"),
+	//};
+	public static ArrayList<Zone> zonen = new ArrayList<Zone>();
+	public static ArrayList<Lampe> lampen = new ArrayList<Lampe>();
 	
-	public static Zone[] zonen = {
-			new Zone(200,200,150,150),
-			new Zone(500,400,600,300),
-	};
-	
-	public int kontrast;
-	
-	public static EventHandling ev;
-	
+	public static int sattigungsWert = 100;
+	public static int transSpeed = 0;
+	public static Overlay ov;
+	public static ZonenDialog zd;
+	public static Gui gui;
+	public static String bridgeKey, bridgeIp; 
 	
 	public static void main(String[] args) throws AWTException {
 		
-		ev = new EventHandling();
-		
 		//Klasse Gui ist die GUI
-		Gui gui = new Gui();
+		gui = new Gui();
 		
+		//demodaten
+		
+		zonen.add(new Zone(300,300,300,300, "Zone1"));
+		zonen.add(new Zone(100,100,150,150, "Zone2"));
+
+		lampen.add(new Lampe("1","a"));
+		lampen.add(new Lampe("2","b"));
+		lampen.add(new Lampe("3","c"));
 		
 		//Overlay
-		Overlay ov = new Overlay();
-		ov.overlayShow();
-		//zonen bearbeiten dialog für das Overlay
-		ZonenDialog zd = new ZonenDialog();
+		ov = new Overlay();
 		
+		//zonen bearbeiten dialog für das Overlay
+		zd = new ZonenDialog();
+
 		
 		//Zu testzwecken BTN einfarben
 		while (true) {
 			//berechnet farbe und weist der zoone zu.
 			sortColors(getScreen());
-			
-			Color c = zonen[0].color;	
-			gui.button.setBackground(c);
-			
-			//Buttons neben den Labels für die einzelnen farbwerte
-			gui.btnred.setBackground(new Color(c.getRed(),0,0));
-			gui.btngreen.setBackground(new Color(0,c.getGreen(),0));
-			gui.btnblue.setBackground(new Color(0,0,c.getBlue()));
-
-			//lable geben rgb wert an
-			String returnred = String.valueOf(c.getRed());
-			String returngreen = String.valueOf(c.getGreen());
-			String returnblue = String.valueOf(c.getBlue());
-
-			//ruckgabe an Textfeld 
-			gui.red.setText(returnred);
-			gui.blue.setText(returnblue);
-			gui.green.setText(returngreen);
 		}
 	}
 
@@ -138,10 +134,10 @@ public class main {
 			//gibt ein array der farbwerte für die Zone zurück
 			int[] zonenFarben = null;
 			//startX, startY, width, height, rgbArray, offset?, scansize?
-			zonenFarben = capture.getRGB(z.x,z.y,z.width,z.height, new int[z.width * z.height], 0, z.width);
+			zonenFarben = capture.getRGB(z.getX(),z.getY(),z.getWidth(),z.getHeight(), new int[z.getWidth() * z.getHeight()], 0, z.getWidth());
 			//TODO: Farbendurchschnitt errechnen und für Zone speichern
 			//System.out.println("Colors : "+Arrays.toString(zonenFarben))
-			z.color = averageColor(zonenFarben);
+			z.setColor(averageColor(zonenFarben));
 		}
   }
 	
@@ -171,4 +167,50 @@ public class main {
  	}
 
 	
+	public static Color stattigung(Color c, int prozent) {
+		//prozent 100 = keine änderung - 50 weniger farbe 150 mehr farbe
+		//je heller der ton werden soll desto höher müssen die einzelnen farbwerte werden
+		//deshalb wird der farbwert mit dem faktor multipliziert
+		int red = c.getRed();
+		int green = c.getGreen();
+		int blue = c.getBlue();
+		
+		int newRed = red * prozent / 100;
+		int newGreen = green * prozent / 100;		
+		int newBlue = blue * prozent / 100;	
+		
+		//farbwert darf 255 nicht überschreiten
+		
+		if(newRed> 255){
+			newRed = 255;
+		}
+		if(newGreen> 255){
+			newGreen = 255;
+		}
+		if(newBlue> 255){
+			newBlue = 255;
+		}
+		
+		Color c2 = new Color(newRed, newGreen, newBlue);
+		
+		return c2;
+	}
+	
+	public static void getAllBlubs(){
+		try {
+			URL url = new URL(
+					"http://192.168.2.20/api/Q99KFY3tPBPEChwADgscZUermNNmRWjEjuKugTdM/lights/");
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setDoOutput(true);
+			connection.setRequestProperty("Content-Type", "application/json");
+			connection.setRequestProperty("Accept", "application/json");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	
 }
+
